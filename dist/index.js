@@ -12,15 +12,29 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = __importDefault(require("express"));
 const EmailService_1 = __importDefault(require("./services/EmailService"));
+const app = (0, express_1.default)();
 const emailService = new EmailService_1.default();
-(() => __awaiter(void 0, void 0, void 0, function* () {
-    const email = {
-        to: "vivekkumar002216@gmail.com",
-        subject: "Hello",
-        body: "Testing email",
-        messageId: "msg-001",
-    };
-    const result = yield emailService.sendEmail(email);
-    console.log(result);
-}))();
+app.use(express_1.default.json());
+app.post("/send-email", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const result = yield emailService.sendEmail(req.body);
+        res.json(result);
+    }
+    catch (error) {
+        console.error("Email send error:", error);
+        res.status(500).json({ error: "Failed to send email" });
+    }
+}));
+app.get("/status/:messageId", (req, res) => {
+    const status = emailService.getStatus(req.params.messageId);
+    if (!status) {
+        return res.status(404).json({ error: "Message ID not found" });
+    }
+    res.json(status);
+});
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`🚀 Server running on port ${PORT}`);
+});
