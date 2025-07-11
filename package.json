@@ -1,0 +1,26 @@
+{
+  "name": "email-service",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {  "dev": "nodemon src/index.ts",
+  "build": "tsc",
+  "start": "node dist/index.js",
+  "test": "jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "nodemon": "^3.1.10",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  },
+  "devDependencies": {
+    "@types/jest": "^30.0.0",
+    "@types/node": "^24.0.13",
+    "jest": "^30.0.4",
+    "ts-jest": "^29.4.0"
+  }
+}
