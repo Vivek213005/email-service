@@ -1,4 +1,4 @@
-import { EmailService } from "../src/services/EmailService";
+import EmailService  from "../services/EmailService";
 
 test("should send email successfully or fallback", async () => {
   const service = new EmailService();
